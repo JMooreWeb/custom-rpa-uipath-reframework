@@ -1,4 +1,4 @@
-<Activity mc:Ignorable="sap sap2010" x:Class="Shared_ExeptionHandler" xmlns="http://schemas.microsoft.com/netfx/2009/xaml/activities" xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" xmlns:mva="clr-namespace:Microsoft.VisualBasic.Activities;assembly=System.Activities" xmlns:s="clr-namespace:System;assembly=mscorlib" xmlns:sap="http://schemas.microsoft.com/netfx/2009/xaml/activities/presentation" xmlns:sap2010="http://schemas.microsoft.com/netfx/2010/xaml/activities/presentation" xmlns:scg="clr-namespace:System.Collections.Generic;assembly=mscorlib" xmlns:ui="http://schemas.uipath.com/workflow/activities" xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml">
+<Activity mc:Ignorable="sap sap2010" x:Class="Shared_ExceptionHandler" this:Shared_ExceptionHandler.in_LogLevel="Error" this:Shared_ExceptionHandler.in_IsRethrow="False" xmlns="http://schemas.microsoft.com/netfx/2009/xaml/activities" xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" xmlns:mva="clr-namespace:Microsoft.VisualBasic.Activities;assembly=System.Activities" xmlns:s="clr-namespace:System;assembly=mscorlib" xmlns:sap="http://schemas.microsoft.com/netfx/2009/xaml/activities/presentation" xmlns:sap2010="http://schemas.microsoft.com/netfx/2010/xaml/activities/presentation" xmlns:scg="clr-namespace:System.Collections.Generic;assembly=mscorlib" xmlns:this="clr-namespace:" xmlns:ui="http://schemas.uipath.com/workflow/activities" xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml">
   <x:Members>
     <x:Property Name="in_ErrorMessage" Type="InArgument(x:String)" />
     <x:Property Name="in_Exception" Type="InArgument(s:Exception)" />
@@ -9,10 +9,10 @@
   <mva:VisualBasic.Settings>
     <x:Null />
   </mva:VisualBasic.Settings>
-  <sap:VirtualizedContainerService.HintSize>1128,1438</sap:VirtualizedContainerService.HintSize>
-  <sap2010:WorkflowViewState.IdRef>Shared_ExeptionHandler_1</sap2010:WorkflowViewState.IdRef>
+  <sap:VirtualizedContainerService.HintSize>667,1760</sap:VirtualizedContainerService.HintSize>
+  <sap2010:WorkflowViewState.IdRef>Shared_ExceptionHandler_1</sap2010:WorkflowViewState.IdRef>
   <TextExpression.NamespacesForImplementation>
-    <scg:List x:TypeArguments="x:String" Capacity="24">
+    <scg:List x:TypeArguments="x:String" Capacity="48">
       <x:String>System.Activities</x:String>
       <x:String>System.Activities.Statements</x:String>
       <x:String>System.Activities.Expressions</x:String>
@@ -37,10 +37,12 @@
       <x:String>System.Activities.DynamicUpdate</x:String>
       <x:String>System.Collections.ObjectModel</x:String>
       <x:String>System.Runtime.Serialization</x:String>
+      <x:String>System.Reflection</x:String>
+      <x:String>System.Runtime.InteropServices</x:String>
     </scg:List>
   </TextExpression.NamespacesForImplementation>
   <TextExpression.ReferencesForImplementation>
-    <scg:List x:TypeArguments="AssemblyReference" Capacity="25">
+    <scg:List x:TypeArguments="AssemblyReference" Capacity="24">
       <AssemblyReference>System.Activities</AssemblyReference>
       <AssemblyReference>Microsoft.VisualBasic</AssemblyReference>
       <AssemblyReference>mscorlib</AssemblyReference>
@@ -59,38 +61,41 @@
       <AssemblyReference>UiPath.UiAutomation.Activities</AssemblyReference>
       <AssemblyReference>System.ValueTuple</AssemblyReference>
       <AssemblyReference>System.ServiceModel</AssemblyReference>
-      <AssemblyReference>UiPath.UIAutomationCore</AssemblyReference>
-      <AssemblyReference>System.Memory</AssemblyReference>
       <AssemblyReference>UiPath.Excel</AssemblyReference>
       <AssemblyReference>UiPath.OCR.Activities.Design</AssemblyReference>
+      <AssemblyReference>System.Memory</AssemblyReference>
+      <AssemblyReference>UiPath.UIAutomationCore</AssemblyReference>
       <AssemblyReference>Microsoft.Bcl.AsyncInterfaces</AssemblyReference>
       <AssemblyReference>System.ComponentModel.Composition</AssemblyReference>
-      <AssemblyReference>System.Runtime.Serialization</AssemblyReference>
     </scg:List>
   </TextExpression.ReferencesForImplementation>
-  <Sequence DisplayName="Shared_ExceptionHandler" sap:VirtualizedContainerService.HintSize="653,1233" sap2010:WorkflowViewState.IdRef="Sequence_1">
+  <Sequence DisplayName="Shared_ExceptionHandler" sap:VirtualizedContainerService.HintSize="653,1655" sap2010:WorkflowViewState.IdRef="Sequence_1">
     <Sequence.Variables>
-      <Variable x:TypeArguments="x:String" Name="innerExInfo" />
-      <Variable x:TypeArguments="x:String" Name="logMessage" />
+      <Variable x:TypeArguments="x:String" Name="fileNamePrefix" />
       <Variable x:TypeArguments="x:String" Name="screenshotFilePath" />
+      <Variable x:TypeArguments="x:String" Name="logMessage" />
+      <Variable x:TypeArguments="x:String" Name="innerExceptionInfo" />
     </Sequence.Variables>
     <sap:WorkflowViewStateService.ViewState>
       <scg:Dictionary x:TypeArguments="x:String, x:Object">
         <x:Boolean x:Key="IsExpanded">True</x:Boolean>
       </scg:Dictionary>
     </sap:WorkflowViewStateService.ViewState>
-    <If Condition="[Not String.IsNullOrWhiteSpace(in_ScreenshotFolderPath)]" sap:VirtualizedContainerService.HintSize="611,552" sap2010:WorkflowViewState.IdRef="If_1">
+    <If sap2010:Annotation.AnnotationText="Takes a screenshot if the folder is passed in the argument" Condition="[Not String.IsNullOrEmpty(in_ScreenshotFolderPath)]" DisplayName="Check if screenshot folder path exists" sap:VirtualizedContainerService.HintSize="611,586" sap2010:WorkflowViewState.IdRef="If_1">
+      <sap:WorkflowViewStateService.ViewState>
+        <scg:Dictionary x:TypeArguments="x:String, x:Object">
+          <x:Boolean x:Key="IsAnnotationDocked">True</x:Boolean>
+        </scg:Dictionary>
+      </sap:WorkflowViewStateService.ViewState>
       <If.Then>
-        <Sequence sap:VirtualizedContainerService.HintSize="376,404" sap2010:WorkflowViewState.IdRef="Sequence_2">
-          <Sequence.Variables>
-            <Variable x:TypeArguments="x:String" Name="fileNamePrefix" />
-          </Sequence.Variables>
+        <Sequence DisplayName="Take exception screenshot" sap:VirtualizedContainerService.HintSize="376,405" sap2010:WorkflowViewState.IdRef="Sequence_2">
           <sap:WorkflowViewStateService.ViewState>
             <scg:Dictionary x:TypeArguments="x:String, x:Object">
               <x:Boolean x:Key="IsExpanded">True</x:Boolean>
+              <x:Boolean x:Key="IsPinned">False</x:Boolean>
             </scg:Dictionary>
           </sap:WorkflowViewStateService.ViewState>
-          <Assign DisplayName="Assign: fileNamePrefix" sap:VirtualizedContainerService.HintSize="334,60" sap2010:WorkflowViewState.IdRef="Assign_3">
+          <Assign DisplayName="Assign: fileNamePrefix" sap:VirtualizedContainerService.HintSize="334,60" sap2010:WorkflowViewState.IdRef="Assign_1">
             <Assign.To>
               <OutArgument x:TypeArguments="x:String">[fileNamePrefix]</OutArgument>
             </Assign.To>
@@ -98,7 +103,7 @@
               <InArgument x:TypeArguments="x:String">[If (in_Exception IsNot Nothing, in_Exception.GetType.Name, "Info")]</InArgument>
             </Assign.Value>
           </Assign>
-          <Assign DisplayName="Assign: screenshotFilePath" sap:VirtualizedContainerService.HintSize="334,60" sap2010:WorkflowViewState.IdRef="Assign_4">
+          <Assign DisplayName="Assign: screenshotFilePath" sap:VirtualizedContainerService.HintSize="334,60" sap2010:WorkflowViewState.IdRef="Assign_2">
             <Assign.To>
               <OutArgument x:TypeArguments="x:String">[screenshotFilePath]</OutArgument>
             </Assign.To>
@@ -106,31 +111,35 @@
               <InArgument x:TypeArguments="x:String">[Path.Combine(in_ScreenshotFolderPath, DateTime.Now.ToString("MM-dd-yyyy"), String.Format("{0}_{1}_{2}.png", fileNamePrefix, Environment.UserName, DateTime.Now.ToString("hhmmssfff")))]</InArgument>
             </Assign.Value>
           </Assign>
-          <ui:InvokeWorkflowFile ContinueOnError="{x:Null}" DisplayName="Invoke Shared_TakeScreenshot workflow" sap:VirtualizedContainerService.HintSize="334,112" sap2010:WorkflowViewState.IdRef="InvokeWorkflowFile_1" UnSafe="False" WorkflowFileName="Shared\Shared_TakeScreenshot.xaml">
+          <ui:InvokeWorkflowFile ContinueOnError="{x:Null}" DisplayName="Invoke Shared_TakeScreenshot workflow" sap:VirtualizedContainerService.HintSize="334,113" sap2010:WorkflowViewState.IdRef="InvokeWorkflowFile_1" UnSafe="False" WorkflowFileName="Shared\Shared_TakeScreenshot.xaml">
             <ui:InvokeWorkflowFile.Arguments>
-              <scg:Dictionary x:TypeArguments="x:String, Argument" />
+              <InOutArgument x:TypeArguments="x:String" x:Key="io_FilePath">
+                <mva:VisualBasicReference x:TypeArguments="x:String" ExpressionText="screenshotFilePath" />
+              </InOutArgument>
+              <InArgument x:TypeArguments="x:String" x:Key="in_FolderPath" />
             </ui:InvokeWorkflowFile.Arguments>
           </ui:InvokeWorkflowFile>
         </Sequence>
       </If.Then>
     </If>
-    <If Condition="[in_Exception IsNot Nothing]" sap:VirtualizedContainerService.HintSize="611,549" sap2010:WorkflowViewState.IdRef="If_2">
+    <If Condition="[in_Exception IsNot Nothing]" DisplayName="Check if exception exists" sap:VirtualizedContainerService.HintSize="611,556" sap2010:WorkflowViewState.IdRef="If_2">
       <If.Then>
-        <Sequence sap:VirtualizedContainerService.HintSize="304,401" sap2010:WorkflowViewState.IdRef="Sequence_3">
+        <Sequence DisplayName="Exception Found" sap:VirtualizedContainerService.HintSize="304,406" sap2010:WorkflowViewState.IdRef="Sequence_3">
           <sap:WorkflowViewStateService.ViewState>
             <scg:Dictionary x:TypeArguments="x:String, x:Object">
               <x:Boolean x:Key="IsExpanded">True</x:Boolean>
+              <x:Boolean x:Key="IsPinned">False</x:Boolean>
             </scg:Dictionary>
           </sap:WorkflowViewStateService.ViewState>
-          <Assign DisplayName="Assign: innerExInfo" sap:VirtualizedContainerService.HintSize="262,60" sap2010:WorkflowViewState.IdRef="Assign_1">
+          <Assign DisplayName="Assign: innerExInfo" sap:VirtualizedContainerService.HintSize="262,60" sap2010:WorkflowViewState.IdRef="Assign_3">
             <Assign.To>
-              <OutArgument x:TypeArguments="x:String">[innerExInfo]</OutArgument>
+              <OutArgument x:TypeArguments="x:String">[innerExceptionInfo]</OutArgument>
             </Assign.To>
             <Assign.Value>
-              <InArgument x:TypeArguments="x:String">[If (in_Exception.InnerException IsNot Nothing, in_Exception.InnerException.GetType.Name+"-"+in_Exception.Message, String.Empty)]</InArgument>
+              <InArgument x:TypeArguments="x:String">[If (in_Exception.InnerException IsNot Nothing, in_Exception.InnerException.GetType.Name + "-" + in_Exception.Message, String.Empty)]</InArgument>
             </Assign.Value>
           </Assign>
-          <Assign DisplayName="Assign: logMessage" sap:VirtualizedContainerService.HintSize="262,60" sap2010:WorkflowViewState.IdRef="Assign_2">
+          <Assign DisplayName="Assign: logMessage" sap:VirtualizedContainerService.HintSize="262,60" sap2010:WorkflowViewState.IdRef="Assign_4">
             <Assign.To>
               <OutArgument x:TypeArguments="x:String">[logMessage]</OutArgument>
             </Assign.To>
@@ -138,23 +147,13 @@
               <InArgument x:TypeArguments="x:String">[String.Format("{0}, ExMessage={1}, Screenshot={2}", in_ErrorMessage, in_Exception.Message, screenshotFilePath)]</InArgument>
             </Assign.Value>
           </Assign>
-          <ui:AddLogFields sap2010:Annotation.AnnotationText="ExType&#xD;&#xA;ExSource&#xD;&#xA;ExStackTrace&#xD;&#xA;InnerExInfo&#xD;&#xA;ScreenshotFilePath" DisplayName="Add Log Fields: ExInfo" sap:VirtualizedContainerService.HintSize="262,109" sap2010:WorkflowViewState.IdRef="AddLogFields_1">
+          <ui:AddLogFields sap2010:Annotation.AnnotationText="ExceptionType&#xA;ExceptionSource&#xA;ExceptionStackTrace&#xA;InnerExceptionInfo&#xA;ScreenshotFilePath" DisplayName="Add Log Fields: ExceptionInfo" sap:VirtualizedContainerService.HintSize="262,114" sap2010:WorkflowViewState.IdRef="AddLogFields_1">
             <ui:AddLogFields.Fields>
-              <InArgument x:TypeArguments="x:String" x:Key="ExType">
-                <mva:VisualBasicValue x:TypeArguments="x:String" ExpressionText="in_Exception.GetType.Name" />
-              </InArgument>
-              <InArgument x:TypeArguments="x:String" x:Key="ExSource">
-                <mva:VisualBasicValue x:TypeArguments="x:String" ExpressionText="in_Exception.Source" />
-              </InArgument>
-              <InArgument x:TypeArguments="x:String" x:Key="ExStackTrace">
-                <mva:VisualBasicValue x:TypeArguments="x:String" ExpressionText="in_Exception.StackTrace" />
-              </InArgument>
-              <InArgument x:TypeArguments="x:String" x:Key="InnerExInfo">
-                <mva:VisualBasicValue x:TypeArguments="x:String" ExpressionText="innerExInfo" />
-              </InArgument>
-              <InArgument x:TypeArguments="x:String" x:Key="ScreenshotFilePath">
-                <mva:VisualBasicValue x:TypeArguments="x:String" ExpressionText="screenshotFilePath" />
-              </InArgument>
+              <InArgument x:TypeArguments="x:String" x:Key="ExceptionType">[in_Exception.GetType.Name]</InArgument>
+              <InArgument x:TypeArguments="x:String" x:Key="ExceptionSource">[in_Exception.Source]</InArgument>
+              <InArgument x:TypeArguments="x:String" x:Key="ExceptionStackTrace">[in_Exception.StackTrace]</InArgument>
+              <InArgument x:TypeArguments="x:String" x:Key="InnerException">[innerExceptionInfo]</InArgument>
+              <InArgument x:TypeArguments="x:String" x:Key="ScreenshotFilePath">[screenshotFilePath]</InArgument>
             </ui:AddLogFields.Fields>
             <sap:WorkflowViewStateService.ViewState>
               <scg:Dictionary x:TypeArguments="x:String, x:Object">
@@ -175,5 +174,35 @@
         </Assign>
       </If.Else>
     </If>
+    <Switch x:TypeArguments="x:String" DisplayName="Switch: in_LogLevel" Expression="[in_LogLevel.ToUpper]" sap:VirtualizedContainerService.HintSize="611,187" sap2010:WorkflowViewState.IdRef="Switch`1_1">
+      <Switch.Default>
+        <ui:LogMessage DisplayName="Log Message: Error" sap:VirtualizedContainerService.HintSize="334,93" sap2010:WorkflowViewState.IdRef="LogMessage_4" Level="Error" Message="[logMessage]" />
+      </Switch.Default>
+      <sap:WorkflowViewStateService.ViewState>
+        <scg:Dictionary x:TypeArguments="x:String, x:Object">
+          <x:Boolean x:Key="IsExpanded">True</x:Boolean>
+          <x:Boolean x:Key="IsPinned">False</x:Boolean>
+        </scg:Dictionary>
+      </sap:WorkflowViewStateService.ViewState>
+      <ui:LogMessage x:Key="FATAL" DisplayName="LogMessage: Fatal" sap:VirtualizedContainerService.HintSize="334,93" sap2010:WorkflowViewState.IdRef="LogMessage_1" Level="Fatal" Message="[logMessage]" />
+      <ui:LogMessage x:Key="WARN" DisplayName="LogMessage: Warn" sap:VirtualizedContainerService.HintSize="334,93" sap2010:WorkflowViewState.IdRef="LogMessage_2" Level="Warn" Message="[logMessage]" />
+      <ui:LogMessage x:Key="INFO" DisplayName="LogMessage: Info" sap:VirtualizedContainerService.HintSize="334,93" sap2010:WorkflowViewState.IdRef="LogMessage_3" Level="Info" Message="[logMessage]" />
+    </Switch>
+    <ui:RemoveLogFields sap2010:Annotation.AnnotationText="ExceptionType&#xA;ExceptionSource&#xA;ExceptionStackTrace&#xA;InnerExceptionInfo&#xA;ScreenshotFilePath" DisplayName="Remove Log Fields: ExceptionInfo" sap:VirtualizedContainerService.HintSize="611,114" sap2010:WorkflowViewState.IdRef="RemoveLogFields_1">
+      <ui:RemoveLogFields.Fields>
+        <scg:List x:TypeArguments="InArgument(x:String)" Capacity="8">
+          <InArgument x:TypeArguments="x:String">ExceptionType</InArgument>
+          <InArgument x:TypeArguments="x:String">ExceptionSource</InArgument>
+          <InArgument x:TypeArguments="x:String">ExceptionStackTrace</InArgument>
+          <InArgument x:TypeArguments="x:String">InnerExceptionInfo</InArgument>
+          <InArgument x:TypeArguments="x:String">ScreenshotFilePath</InArgument>
+        </scg:List>
+      </ui:RemoveLogFields.Fields>
+      <sap:WorkflowViewStateService.ViewState>
+        <scg:Dictionary x:TypeArguments="x:String, x:Object">
+          <x:Boolean x:Key="IsAnnotationDocked">True</x:Boolean>
+        </scg:Dictionary>
+      </sap:WorkflowViewStateService.ViewState>
+    </ui:RemoveLogFields>
   </Sequence>
 </Activity>
