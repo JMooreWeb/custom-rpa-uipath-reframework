@@ -1,4 +1,4 @@
-<Activity mc:Ignorable="sap sap2010" x:Class="GetQueueItemList" xmlns="http://schemas.microsoft.com/netfx/2009/xaml/activities" xmlns:maes="clr-namespace:Microsoft.Activities.Extensions.Statements;assembly=Microsoft.Activities.Extensions" xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" xmlns:mva="clr-namespace:Microsoft.VisualBasic.Activities;assembly=System.Activities" xmlns:s="clr-namespace:System;assembly=mscorlib" xmlns:sap="http://schemas.microsoft.com/netfx/2009/xaml/activities/presentation" xmlns:sap2010="http://schemas.microsoft.com/netfx/2010/xaml/activities/presentation" xmlns:scg="clr-namespace:System.Collections.Generic;assembly=mscorlib" xmlns:sd="clr-namespace:System.Data;assembly=System.Data" xmlns:ui="http://schemas.uipath.com/workflow/activities" xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml">
+<Activity mc:Ignorable="sap sap2010" x:Class="GetQueueItemList" xmlns="http://schemas.microsoft.com/netfx/2009/xaml/activities" xmlns:maes="clr-namespace:Microsoft.Activities.Extensions.Statements;assembly=Microsoft.Activities.Extensions" xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" xmlns:mva="clr-namespace:Microsoft.VisualBasic.Activities;assembly=System.Activities" xmlns:p="http://schemas.microsoft.com/workflow/2012/07/xaml/activities" xmlns:s="clr-namespace:System;assembly=mscorlib" xmlns:sap="http://schemas.microsoft.com/netfx/2009/xaml/activities/presentation" xmlns:sap2010="http://schemas.microsoft.com/netfx/2010/xaml/activities/presentation" xmlns:scg="clr-namespace:System.Collections.Generic;assembly=mscorlib" xmlns:sd="clr-namespace:System.Data;assembly=System.Data" xmlns:ui="http://schemas.uipath.com/workflow/activities" xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml">
   <x:Members>
     <x:Property Name="in_Config" Type="InArgument(scg:Dictionary(x:String, x:Object))" />
     <x:Property Name="out_QueueItemList" Type="OutArgument(scg:List(scg:IDictionary(x:String, x:String)))" />
@@ -6,7 +6,7 @@
   <mva:VisualBasic.Settings>
     <x:Null />
   </mva:VisualBasic.Settings>
-  <sap:VirtualizedContainerService.HintSize>1121,1807</sap:VirtualizedContainerService.HintSize>
+  <sap:VirtualizedContainerService.HintSize>1043,1702</sap:VirtualizedContainerService.HintSize>
   <sap2010:WorkflowViewState.IdRef>GetQueueItemDetailsList_1</sap2010:WorkflowViewState.IdRef>
   <TextExpression.NamespacesForImplementation>
     <scg:List x:TypeArguments="x:String" Capacity="31">
@@ -74,15 +74,15 @@
       <AssemblyReference>Microsoft.Activities.Extensions</AssemblyReference>
     </scg:List>
   </TextExpression.ReferencesForImplementation>
-  <Sequence DisplayName="QueueItemList" sap:VirtualizedContainerService.HintSize="1131,1742" sap2010:WorkflowViewState.IdRef="Sequence_1">
+  <Sequence DisplayName="QueueItemList" sap:VirtualizedContainerService.HintSize="1053,1637" sap2010:WorkflowViewState.IdRef="Sequence_1">
     <sap:WorkflowViewStateService.ViewState>
       <scg:Dictionary x:TypeArguments="x:String, x:Object">
         <x:Boolean x:Key="IsExpanded">True</x:Boolean>
       </scg:Dictionary>
     </sap:WorkflowViewStateService.ViewState>
-    <TryCatch DisplayName="Try Catch" sap:VirtualizedContainerService.HintSize="1089,1650" sap2010:WorkflowViewState.IdRef="TryCatch_1">
+    <TryCatch DisplayName="Try Catch" sap:VirtualizedContainerService.HintSize="1011,1545" sap2010:WorkflowViewState.IdRef="TryCatch_1">
       <TryCatch.Try>
-        <Sequence DisplayName="Try Reading Excel File" sap:VirtualizedContainerService.HintSize="1051,1423" sap2010:WorkflowViewState.IdRef="Sequence_2">
+        <Sequence DisplayName="Try Reading Excel File" sap:VirtualizedContainerService.HintSize="973,1318" sap2010:WorkflowViewState.IdRef="Sequence_2">
           <Sequence.Variables>
             <Variable x:TypeArguments="sd:DataTable" Name="ExcelDataTable" />
           </Sequence.Variables>
@@ -91,7 +91,7 @@
               <x:Boolean x:Key="IsExpanded">True</x:Boolean>
             </scg:Dictionary>
           </sap:WorkflowViewStateService.ViewState>
-          <Assign DisplayName="Assign out_QueueItemList" sap:VirtualizedContainerService.HintSize="1009,60" sap2010:WorkflowViewState.IdRef="Assign_1">
+          <Assign DisplayName="Assign out_QueueItemList" sap:VirtualizedContainerService.HintSize="931,60" sap2010:WorkflowViewState.IdRef="Assign_1">
             <Assign.To>
               <OutArgument x:TypeArguments="scg:List(scg:IDictionary(x:String, x:String))">[out_QueueItemList]</OutArgument>
             </Assign.To>
@@ -99,7 +99,7 @@
               <InArgument x:TypeArguments="scg:List(scg:IDictionary(x:String, x:String))">[New List(Of IDictionary(Of String, String))]</InArgument>
             </Assign.Value>
           </Assign>
-          <ui:InvokeWorkflowFile ArgumentsVariable="{x:Null}" ContinueOnError="{x:Null}" DisplayName="Invoke Shared_ReadExcelSheet workflow" sap:VirtualizedContainerService.HintSize="1009,112" sap2010:WorkflowViewState.IdRef="InvokeWorkflowFile_1" UnSafe="False" WorkflowFileName="Shared\Shared_ReadExcelSheet.xaml">
+          <ui:InvokeWorkflowFile ArgumentsVariable="{x:Null}" ContinueOnError="{x:Null}" DisplayName="Invoke Shared_ReadExcelSheet workflow" sap:VirtualizedContainerService.HintSize="931,112" sap2010:WorkflowViewState.IdRef="InvokeWorkflowFile_1" UnSafe="False" WorkflowFileName="Shared\Shared_ReadExcelSheet.xaml">
             <ui:InvokeWorkflowFile.Arguments>
               <InArgument x:TypeArguments="x:String" x:Key="in_ExcelFilePath">
                 <mva:VisualBasicValue x:TypeArguments="x:String" ExpressionText="in_Config(&quot;ExcelFilePath&quot;).ToString" />
@@ -122,15 +122,15 @@
               <InArgument x:TypeArguments="s:String[]" x:Key="in_OptionalColumns" />
             </ui:InvokeWorkflowFile.Arguments>
           </ui:InvokeWorkflowFile>
-          <If Condition="[ExcelDataTable IsNot Nothing AndAlso ExcelDataTable.Rows.Count &gt; 0]" sap:VirtualizedContainerService.HintSize="1009,1079" sap2010:WorkflowViewState.IdRef="If_1">
+          <If Condition="[ExcelDataTable IsNot Nothing AndAlso ExcelDataTable.Rows.Count &gt; 0]" sap:VirtualizedContainerService.HintSize="931,974" sap2010:WorkflowViewState.IdRef="If_1">
             <If.Then>
-              <ui:ForEachRow ColumnNames="{x:Null}" CurrentIndex="{x:Null}" sap2010:Annotation.AnnotationText="Add DataTable rows to dictionary list" DataTable="[ExcelDataTable]" DisplayName="For Each Row in Data Table" sap:VirtualizedContainerService.HintSize="630,921" sap2010:WorkflowViewState.IdRef="ForEachRow_1">
+              <ui:ForEachRow ColumnNames="{x:Null}" CurrentIndex="{x:Null}" sap2010:Annotation.AnnotationText="Add DataTable rows to dictionary list" DataTable="[ExcelDataTable]" DisplayName="For Each Row in Data Table" sap:VirtualizedContainerService.HintSize="552,816" sap2010:WorkflowViewState.IdRef="ForEachRow_1">
                 <ui:ForEachRow.Body>
                   <ActivityAction x:TypeArguments="sd:DataRow">
                     <ActivityAction.Argument>
                       <DelegateInArgument x:TypeArguments="sd:DataRow" Name="row" />
                     </ActivityAction.Argument>
-                    <Sequence DisplayName="Body" sap:VirtualizedContainerService.HintSize="596,775" sap2010:WorkflowViewState.IdRef="Sequence_4">
+                    <Sequence DisplayName="Body" sap:VirtualizedContainerService.HintSize="518,670" sap2010:WorkflowViewState.IdRef="Sequence_4">
                       <Sequence.Variables>
                         <Variable x:TypeArguments="x:String" Name="QueueReference" />
                         <Variable x:TypeArguments="scg:IDictionary(x:String, x:String)" Default="[New Dictionary(Of String, String)]" Name="TransactionItemDict" />
@@ -141,7 +141,7 @@
                           <x:Boolean x:Key="IsPinned">False</x:Boolean>
                         </scg:Dictionary>
                       </sap:WorkflowViewStateService.ViewState>
-                      <Assign DisplayName="Assign QueueReference" sap:VirtualizedContainerService.HintSize="554,60" sap2010:WorkflowViewState.IdRef="Assign_2">
+                      <Assign DisplayName="Assign QueueReference" sap:VirtualizedContainerService.HintSize="476,60" sap2010:WorkflowViewState.IdRef="Assign_2">
                         <Assign.To>
                           <OutArgument x:TypeArguments="x:String">[QueueReference]</OutArgument>
                         </Assign.To>
@@ -149,35 +149,29 @@
                           <InArgument x:TypeArguments="x:String">[String.Format("{0}_{1}", row(0).ToString, Now.ToString("MM-dd-yyyy_hh:mm:ss"))]</InArgument>
                         </Assign.Value>
                       </Assign>
-                      <ui:ForEach x:TypeArguments="sd:DataColumn" CurrentIndex="{x:Null}" DisplayName="For Each" sap:VirtualizedContainerService.HintSize="554,521" sap2010:WorkflowViewState.IdRef="ForEach`1_2" Values="[ExcelDataTable.Columns]">
+                      <p:BuildDictionary x:TypeArguments="x:String, x:String" DisplayName="Build dictionary" sap:VirtualizedContainerService.HintSize="476,22" sap2010:WorkflowViewState.IdRef="BuildDictionary`2_1" Result="[TransactionItemDict]">
+                        <p:BuildDictionary.Values>
+                          <InArgument x:TypeArguments="x:String" x:Key="Reference">[QueueReference]</InArgument>
+                        </p:BuildDictionary.Values>
+                      </p:BuildDictionary>
+                      <ui:ForEach x:TypeArguments="sd:DataColumn" CurrentIndex="{x:Null}" DisplayName="For Each" sap:VirtualizedContainerService.HintSize="476,354" sap2010:WorkflowViewState.IdRef="ForEach`1_2" Values="[ExcelDataTable.Columns]">
                         <ui:ForEach.Body>
                           <ActivityAction x:TypeArguments="sd:DataColumn">
                             <ActivityAction.Argument>
                               <DelegateInArgument x:TypeArguments="sd:DataColumn" Name="item" />
                             </ActivityAction.Argument>
-                            <Sequence DisplayName="Body" sap:VirtualizedContainerService.HintSize="518,397" sap2010:WorkflowViewState.IdRef="Sequence_6">
+                            <Sequence DisplayName="Body" sap:VirtualizedContainerService.HintSize="440,230" sap2010:WorkflowViewState.IdRef="Sequence_6">
                               <sap:WorkflowViewStateService.ViewState>
                                 <scg:Dictionary x:TypeArguments="x:String, x:Object">
                                   <x:Boolean x:Key="IsExpanded">True</x:Boolean>
                                 </scg:Dictionary>
                               </sap:WorkflowViewStateService.ViewState>
-                              <ui:CommentOut DisplayName="Comment Out" sap:VirtualizedContainerService.HintSize="476,305" sap2010:WorkflowViewState.IdRef="CommentOut_1">
-                                <ui:CommentOut.Body>
-                                  <Sequence DisplayName="Ignored Activities" sap:VirtualizedContainerService.HintSize="440,227" sap2010:WorkflowViewState.IdRef="Sequence_7">
-                                    <sap:WorkflowViewStateService.ViewState>
-                                      <scg:Dictionary x:TypeArguments="x:String, x:Object">
-                                        <x:Boolean x:Key="IsExpanded">True</x:Boolean>
-                                      </scg:Dictionary>
-                                    </sap:WorkflowViewStateService.ViewState>
-                                    <maes:AddToDictionary x:TypeArguments="x:Object, x:Object" Dictionary="[TransactionItemDict]" DisplayName="Add to dictionary" sap:VirtualizedContainerService.HintSize="398,135" sap2010:WorkflowViewState.IdRef="AddToDictionary`2_1" Key="[item.ColumnName]" Value="[row(item.ColumnName).ToString]" />
-                                  </Sequence>
-                                </ui:CommentOut.Body>
-                              </ui:CommentOut>
+                              <maes:AddToDictionary x:TypeArguments="x:String, x:String" Dictionary="[TransactionItemDict]" DisplayName="Add to dictionary" sap:VirtualizedContainerService.HintSize="398,138" sap2010:WorkflowViewState.IdRef="AddToDictionary`2_2" Key="[item.ColumnName]" Value="[row(item.ColumnName).ToString]" />
                             </Sequence>
                           </ActivityAction>
                         </ui:ForEach.Body>
                       </ui:ForEach>
-                      <AddToCollection x:TypeArguments="scg:IDictionary(x:String, x:String)" Collection="[out_QueueItemList]" DisplayName="Add To Collection" sap:VirtualizedContainerService.HintSize="554,22" sap2010:WorkflowViewState.IdRef="AddToCollection`1_1" Item="[TransactionItemDict]" />
+                      <AddToCollection x:TypeArguments="scg:IDictionary(x:String, x:String)" Collection="[out_QueueItemList]" DisplayName="Add To Collection" sap:VirtualizedContainerService.HintSize="476,22" sap2010:WorkflowViewState.IdRef="AddToCollection`1_1" Item="[TransactionItemDict]" />
                     </Sequence>
                   </ActivityAction>
                 </ui:ForEachRow.Body>
@@ -197,7 +191,7 @@
         </Sequence>
       </TryCatch.Try>
       <TryCatch.Catches>
-        <Catch x:TypeArguments="s:Exception" sap:VirtualizedContainerService.HintSize="1055,21" sap2010:WorkflowViewState.IdRef="Catch`1_1">
+        <Catch x:TypeArguments="s:Exception" sap:VirtualizedContainerService.HintSize="977,21" sap2010:WorkflowViewState.IdRef="Catch`1_1">
           <sap:WorkflowViewStateService.ViewState>
             <scg:Dictionary x:TypeArguments="x:String, x:Object">
               <x:Boolean x:Key="IsExpanded">False</x:Boolean>
